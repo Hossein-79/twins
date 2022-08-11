@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,17 +8,54 @@
     <title>Twins</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com"> 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-</head>
-<body class="bg-slate-50">
-    <div class="container mx-auto">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@700&display=swap" rel="stylesheet">
 
-        <svg role="img" class="h-6 w-6">
-            <use xlink:href="/static/sprite.svg#logo"></use>
-        </svg>
-        {% block content %}{% endblock %}
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicons/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicons/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicons/favicon-16x16.png' %}">
+    <link rel="mask-icon" href="{% static 'favicons/safari-pinned-tab.svg' %}" color="#5bbad5">
+</head>
+
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-300 h-full">
+    <div class="container flex flex-col min-h-screen mx-auto px-5">
+        <header class="flex items-center py-5">
+            <a href="/">
+                <svg role="img" class="block h-10 w-24">
+                    <use xlink:href="/static/sprite.svg#logo"></use>
+                </svg>
+            </a>
+            <div class="flex items-center select-none ml-auto">
+                <svg role="img" class="sun-icon transition-colors h-4 w-4 mr-2">
+                    <use xlink:href="/static/sprite.svg#icon-sun"></use>
+                </svg>
+                <input type="checkbox" id="dark-mode-checkbox" class="toggle">
+                <label for="dark-mode-checkbox" class="toggle-box">
+                    <div class="toggle-circle"></div>
+                </label>
+                <svg role="img" class="moon-icon transition-colors h-4 w-4 ml-2">
+                    <use xlink:href="/static/sprite.svg#icon-moon"></use>
+                </svg>
+            </div>
+        </header>
+        <main class="flex-grow">
+            {% block content %}{% endblock %}
+        </main>
+        <footer class="flex items-center py-5">
+            <span class="text-xs">
+                Designed and developed by
+                <a href="https://github.com/almoloo" target="_blank" class="link">@almoloo</a>
+                &
+                <a href="https://github.com/Hossein-79" target="_blank" class="link">@hossein-79</a>
+            </span>
+        </footer>
     </div>
+    <script src="{% static 'script.js' %}"></script>
 </body>
+
 </html>

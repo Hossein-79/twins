@@ -4,8 +4,89 @@ html {
 
 body {
     font-family: 'Open Sans', sans-serif;
+    min-height: 100vh;
 }
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .sun-icon {
+        @apply text-slate-500 dark:text-slate-600;
+    }
+    .moon-icon {
+        @apply text-slate-200;
+    }
+    .toggle {
+        @apply hidden;
+    }
+    .toggle-box {
+        @apply h-4 w-7 flex items-center border border-slate-500 dark:border-slate-200 rounded-full cursor-pointer px-1;
+    }
+    .toggle-box .toggle-circle {
+        @apply h-2 w-2 bg-slate-500 dark:bg-slate-200 rounded-full;
+    }
+    .toggle:checked + .toggle-box {
+        @apply justify-end;
+    }
+    .link {
+        @apply text-emerald-500 hover:text-emerald-700;
+    }
+    .btn {
+        @apply inline-block rounded transition-colors px-5 py-3;
+    }
+    .btn.btn-success {
+        @apply bg-emerald-500 text-white hover:bg-emerald-700 active:bg-emerald-800;
+    }
+    .btn[disabled] {
+        @apply bg-slate-400 hover:bg-slate-400 cursor-not-allowed;
+    }
+    .btn.loading {
+        @apply relative;
+    }
+    .btn.loading .btn-text {
+        @apply opacity-0;
+    }
+    .btn.loading .btn-spinner {
+        @apply block absolute text-white top-3 right-3 bottom-3 left-3;
+    }
+    .btn.loading .btn-spinner svg {
+        @apply h-full w-full animate-spin;
+    }
+    .btn:not(.loading) .btn-spinner {
+        @apply hidden;
+    }
+    .radial-gradient {
+        background: radial-gradient(50% 50% at 50% 50%, rgba(248, 250, 252, 0) 0%, rgba(248, 250, 252, 1) 120%);
+    }
+    .dark .radial-gradient {
+        background: radial-gradient(50% 50% at 50% 50%, rgba(15, 23, 42, 0) 0%, rgba(15, 23, 42, 1) 120%);
+    }
+    .text-mono {
+        font-family: 'Source Code Pro', monospace;
+    }
+    .animate-scroll {
+        animation: scroll 30s ease-in-out 2 alternate;
+    }
+    @keyframes scroll {
+        from {
+            transform: translateY(0);
+        }
+        to {
+            transform: translateY(-100%);
+        }
+    }
+    .card > .card-item {
+        @apply border-l border-r border-b border-slate-300 dark:border-slate-600 relative;
+    }
+    .card > .card-item:first-child {
+        @apply border-t rounded-t;
+    }
+    .card > .card-item:last-child {
+        @apply rounded-b;
+    }
+    .card > .card-item > * {
+        @apply px-5 py-4;
+    }
+}

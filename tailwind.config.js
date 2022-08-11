@@ -2,7 +2,8 @@
 module.exports = {
   content: ["twins/templates/**/*.html", "twins/static/**/*.js"],
   theme: {
-    extend: {},
+    extend: {}
   },
   plugins: [],
-}
+  darkMode: "class"
+};
