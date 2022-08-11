@@ -22,7 +22,7 @@
     <link rel="mask-icon" href="{% static 'favicons/safari-pinned-tab.svg' %}" color="#5bbad5">
 </head>
 
-<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-300 h-full">
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-300 h-screen">
     <div class="container flex flex-col min-h-screen mx-auto px-5">
         <header class="flex items-center py-5">
             <a href="/">
@@ -43,7 +43,7 @@
                 </svg>
             </div>
         </header>
-        <main class="flex-grow">
+        <main class="flex flex-col flex-grow">
             {% block content %}{% endblock %}
         </main>
         <footer class="flex items-center py-5">

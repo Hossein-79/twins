@@ -3,12 +3,12 @@
 {% block content %}
 <section class="grid md:grid-cols-6 md:gap-5 place-items-center my-7">
     <div class="md:col-span-3 text-center md:text-left mb-7 md:mb-0">
-        <h1 class="text-3xl font-extrabold leading-relaxed mb-7">
+        <h1 class="text-2xl md:text-3xl font-extrabold leading-relaxed mb-7">
             It’s dangerous to go alone!
             <span class="hidden md:block"></span>
             Take this.
         </h1>
-        <p class="text-slate-400 dark:text-slate-500 leading-relaxed">
+        <p class="text-slate-400 dark:text-slate-500 text-sm md:text-base leading-relaxed">
             Twins allows you to easily compare an Algorand application with a source file on github and make sure the same source has been deployed to the Algorand blockchain.
         </p>
         <a href="#" class="btn btn-success hidden md:inline-block mt-7">Check an Application</a>
@@ -43,7 +43,7 @@
         </div>
     </div>
 </section>
-<section>
+<section class="my-auto">
     <div class="card text-sm">
         <div class="card-item text-center">
             <h2 class="font-bold">
@@ -51,9 +51,9 @@
             </h2>
         </div>
         <div class="card-item">
-            <a href="#" class="flex items-center justify-between hover:bg-slate-100 active:bg-slate-200 transition-colors">
+            <a href="#" class="flex items-center justify-between hover:bg-slate-100 dark:hover:bg-slate-800/50 active:bg-slate-200 dark:active:bg-slate-800/75 transition-colors">
                 <span>Tinyman AMM V1.1</span>
-                <svg role="img" class="text-slate-400 w-6 h-6">
+                <svg role="img" class="text-slate-400 dark:text-slate-600 w-6 h-6">
                     <use xlink:href="/static/sprite.svg#icon-chevron-right"></use>
                 </svg>
             </a>
