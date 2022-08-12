@@ -2,4 +2,13 @@
 
 {% block content %}
 <h1>home page</h1>
+
+<form action='/application' method='GET'>
+    <div class="form-group">
+      <label for="">application id</label>
+      <input type="text"
+        class="form-control" name="app_id" id="" placeholder="example 552635992">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
 {% endblock %}
