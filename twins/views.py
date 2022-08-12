@@ -24,6 +24,10 @@ def choose_repo_file(request):
         #check file
         return render(request, 'choose_contract.html', context)
 
+def check_application(request):
+    context = {}
+    return render(request, 'check_application.html', context)
+
 def search_application(request):
     #552635992
     app_id = request.GET.get('app_id','')
