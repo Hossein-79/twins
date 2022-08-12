@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+    {% block content %}
+    <h2>application</h2>
+
+    {% if exist == True %}
+        <h3>valid</h3>
+        <h3>id = {{ application.id }}</h3>
+        <h3>creator = {{ application.params.creator }}</h3>
+        <h3>deleted = {{ application.deleted }}</h3>
+    {% elif exist == False %}
+        <h3>{{message}}</h3>
+    {% endif %}
+{% endblock %}

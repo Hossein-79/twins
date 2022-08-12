@@ -2,6 +2,7 @@ from cgitb import strong
 from multiprocessing import context
 from django.shortcuts import render
 from . import github
+from . import algo_explorer
 
 # Create your views here.
 def index(request):
@@ -21,4 +22,10 @@ def choose_repo_file(request):
     
     if request.method == 'POST':
         #check file
-        return render(request, 'chose_contract.html', context)
+        return render(request, 'choose_contract.html', context)
+
+def search_application(request):
+    #552635992
+    app_id = request.GET.get('app_id','')
+    context = algo_explorer.get_application_by_id(app_id)
+    return render(request, 'search_application.html', context)
