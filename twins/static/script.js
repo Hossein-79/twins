@@ -20,3 +20,12 @@ function setDarkMode(isDark) {
 darkModeToggle.addEventListener('change', function () {
     setDarkMode(darkModeToggle.checked);
 });
+// Selectable text
+var selectableText = document.getElementsByClassName('selectable');
+for (var i = 0; i < selectableText.length; i++) {
+    selectableText[i].addEventListener('click', function () {
+        window.getSelection().selectAllChildren(
+            this
+        );
+    });
+}

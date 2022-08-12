@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
     {% block content %}
-    <h2>application</h2>
+    {% comment %} <h2>application</h2>
 
     {% if exist == True %}
         <h3>valid</h3>
@@ -9,5 +9,102 @@
         <h3>deleted = {{ application.deleted }}</h3>
     {% elif exist == False %}
         <h3>{{message}}</h3>
-    {% endif %}
+    {% endif %} {% endcomment %}
+
+    <div class="md:grid md:grid-cols-4">
+        <!-- SUCCESS -->
+        <div class="card text-sm md:col-start-2 md:col-end-4">
+            <div class="card-item text-center">
+                <h2 class="font-bold flex items-center justify-between">
+                    <strong class="font-bold">552635992</strong>
+                    <svg role="img" class="text-emerald-500 w-5 h-5">
+                        <use xlink:href="/static/sprite.svg#icon-shield-check"></use>
+                    </svg>
+                </h2>
+            </div>
+            <div class="card-item">
+                <div>
+                    <p class="text-base font-semibold text-emerald-500 mb-3">
+                        This application has been checked and matched with the given file on Github.
+                    </p>
+                    <p class="text-slate-400">
+                        But that doesn’t mean that it’s safe to use! Check the source and make sure what it is actually doing behind the scene before trusting it with your hard earned money.
+                    </p>
+                </div>
+            </div>
+            <div class="card-item">
+                <ul>
+                    <li class="flex items-center justify-between mb-3">
+                        <span class="text-slate-400">Commit</span>
+                        <span>#a055a31</span>
+                    </li>
+                    <li class="flex items-center justify-between">
+                        <span class="text-slate-400">Date Checked</span>
+                        <span>Jan 18, 2022 04:19</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-item">
+                <a href="#" class="flex items-center justify-between hover:bg-slate-100 dark:hover:bg-slate-800/50 active:bg-slate-200 dark:active:bg-slate-800/75 transition-colors">
+                    <span>AlgoExplorer</span>
+                    <svg role="img" class="text-slate-400 dark:text-slate-600 w-6 h-6">
+                        <use xlink:href="/static/sprite.svg#icon-chevron-right"></use>
+                    </svg>
+                </a>
+            </div>
+            <div class="card-item">
+                <a href="#" class="flex items-center justify-between hover:bg-slate-100 dark:hover:bg-slate-800/50 active:bg-slate-200 dark:active:bg-slate-800/75 transition-colors">
+                    <span>Github URL</span>
+                    <svg role="img" class="text-slate-400 dark:text-slate-600 w-6 h-6">
+                        <use xlink:href="/static/sprite.svg#icon-chevron-right"></use>
+                    </svg>
+                </a>
+            </div>
+            <div class="card-item">
+                <div class="flex flex-col">
+                    <span class="mx-auto mb-3">Github Badge</span>
+                    <div class="selectable bg-white dark:bg-black border border-slate-300 dark:border-slate-600 rounded cursor-text px-3 py-2">
+                        &lt;a href=”#”&gt;&lt;img src=”#” alt=”Algo Application Verification” /&gt;&lt;/a&gt;
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END/SUCCESS -->
+        <!-- ERROR -->
+        <div class="card text-sm md:col-start-2 md:col-end-4">
+            <div class="card-item text-center">
+                <h2 class="font-bold flex items-center justify-between">
+                    <strong class="font-bold">552635992</strong>
+                    <svg role="img" class="text-rose-400 w-5 h-5">
+                        <use xlink:href="/static/sprite.svg#icon-shield-x"></use>
+                    </svg>
+                </h2>
+            </div>
+            <div class="card-item">
+                <div>
+                    <p class="text-base font-semibold text-rose-400">
+                        This application has been checked and does not with the given file on Github.
+                    </p>
+                </div>
+            </div>
+            <div class="card-item">
+                <a href="#" class="flex items-center justify-between hover:bg-slate-100 dark:hover:bg-slate-800/50 active:bg-slate-200 dark:active:bg-slate-800/75 transition-colors">
+                    <span>AlgoExplorer</span>
+                    <svg role="img" class="text-slate-400 dark:text-slate-600 w-6 h-6">
+                        <use xlink:href="/static/sprite.svg#icon-chevron-right"></use>
+                    </svg>
+                </a>
+            </div>
+            <div class="card-item">
+                <a href="#" class="flex items-center justify-between hover:bg-slate-100 dark:hover:bg-slate-800/50 active:bg-slate-200 dark:active:bg-slate-800/75 transition-colors">
+                    <span>Github URL</span>
+                    <svg role="img" class="text-slate-400 dark:text-slate-600 w-6 h-6">
+                        <use xlink:href="/static/sprite.svg#icon-chevron-right"></use>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <!-- END/ERROR -->
+    </div>
+
 {% endblock %}
