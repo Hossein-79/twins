@@ -1,0 +1,23 @@
+{
+  "name": "twins",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "css": "npx tailwindcss -i ./twins/static/style.src.css -o ./twins/static/style.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hossein-79/twins.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hossein-79/twins/issues"
+  },
+  "homepage": "https://github.com/Hossein-79/twins#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.1.8"
+  }
+}
