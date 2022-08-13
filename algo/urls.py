@@ -23,6 +23,8 @@ urlpatterns = [
     path('choose/', views.choose_repo_file),
     path('application/', views.search_application),
     path('check_app/', views.check_application),
+    path('test1/', views.test1),
+    path('test2/', views.test2),
     path('admin/', admin.site.urls),
     path('playground/', include('playground.urls'))
 ]
