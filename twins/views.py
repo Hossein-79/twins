@@ -4,6 +4,13 @@ from django.shortcuts import render
 from . import github
 from . import algo_explorer
 
+#test pages
+def test1(request):
+    return render(request, 'test1.html')
+
+def test2(request):
+    return render(request, 'test2.html')
+
 # Create your views here.
 def index(request):
     context = {}
@@ -23,6 +30,10 @@ def choose_repo_file(request):
     if request.method == 'POST':
         #check file
         return render(request, 'choose_contract.html', context)
+
+def check_application(request):
+    context = {}
+    return render(request, 'check_application.html', context)
 
 def search_application(request):
     #552635992
