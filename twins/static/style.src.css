@@ -34,25 +34,28 @@ body {
         @apply text-emerald-500 hover:text-emerald-700;
     }
     .btn {
-        @apply inline-block rounded transition-colors px-5 py-3;
+        @apply inline-block relative rounded transition-colors px-5 py-3;
     }
     .btn.btn-success {
         @apply bg-emerald-500 text-white hover:bg-emerald-700 active:bg-emerald-800;
     }
+    .btn.btn-gray {
+        @apply bg-gray-500 text-white hover:bg-gray-700 active:bg-gray-800;
+    }
     .btn[disabled] {
         @apply bg-slate-400 hover:bg-slate-400 cursor-not-allowed;
-    }
-    .btn.loading {
-        @apply relative;
     }
     .btn.loading .btn-text {
         @apply opacity-0;
     }
-    .btn.loading .btn-spinner {
+    .btn .btn-icon-wrapper {
         @apply block absolute text-white top-3 right-3 bottom-3 left-3;
     }
+    .btn .btn-icon-wrapper svg {
+        @apply h-full w-full;
+    }
     .btn.loading .btn-spinner svg {
-        @apply h-full w-full animate-spin;
+        @apply animate-spin;
     }
     .btn:not(.loading) .btn-spinner {
         @apply hidden;
@@ -88,5 +91,41 @@ body {
     }
     .card > .card-item > * {
         @apply px-5 py-4;
+    }
+    .input-group {
+        @apply flex flex-col cursor-text bg-white dark:bg-black border border-slate-300 dark:border-slate-600 rounded transition-colors px-3 py-2 mb-2;
+    }
+    .input-group input {
+        @apply bg-transparent text-base;
+    }
+    .input-group input:focus {
+        @apply outline-none;
+    }
+    .input-group .input-label {
+        @apply text-xs transition-colors text-slate-400 mb-1;
+    }
+    .input-group:focus-within:not([disabled]):not(.input-invalid) {
+        @apply border-emerald-400;
+    }
+    .input-group:focus-within:not([disabled]):not(.input-invalid) .input-label {
+        @apply text-emerald-500;
+    }
+    .input-group[disabled] {
+        @apply bg-slate-200 dark:bg-slate-900 cursor-not-allowed;
+    }
+    input[disabled] {
+        @apply text-slate-600 pointer-events-none;
+    }
+    .input-group.input-invalid {
+        @apply border-rose-400;
+    }
+    .input-group.input-invalid .input-label {
+        @apply text-rose-400;
+    }
+    .input-group:not(.input-invalid) + .input-error {
+        @apply hidden;
+    }
+    .input-group.input-invalid + .input-error {
+        @apply block text-rose-400 font-medium text-xs;
     }
 }

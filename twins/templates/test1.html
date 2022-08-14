@@ -1,5 +1,309 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<h2>test 1</h2>
+<div class="md:grid md:grid-cols-8 gap-5">
+    <div class="card text-sm md:col-start-1 md:col-end-4 mb-5 md:mb-0">
+        <div class="card-item text-center">
+            <h2 class="font-bold">
+                Verify Application
+            </h2>
+        </div>
+        <div class="card-item">
+            <form id="verify-form" class="flex flex-col" data-stage="1" method="post" action="/">
+                <div data-section="1">
+                    <label class="input-group" for="app-id-input">
+                        <span class="input-label">Application ID</span>
+                        <input type="text" inputmode="numeric" id="app-id-input" required />
+                    </label>
+                    <small id="app-id-input-error" class="input-error"></small>
+                </div>
+                <div data-section="2" class="hidden">
+                    <label class="input-group" for="github-repo-input" disabled>
+                        <span class="input-label">GitHub Repository</span>
+                        <input type="url" id="github-repo-input" disabled required />
+                    </label>
+                    <small id="github-repo-input-error" class="input-error"></small>
+                </div>
+                <div data-section="3" class="hidden">
+                    <p class="mb-3">
+                        Please select the contract file you wish to compare to the deployed contract.
+                    </p>
+                    <template id="file-template">
+                        <li class="card-item">
+                            <button type="button" class="file-btn flex items-center justify-between w-full hover:bg-slate-100 dark:hover:bg-slate-800/50 active:bg-slate-200 disabled:active:bg-slate-800/50 disabled:bg-slate-100 dark:disabled:bg-slate-800/50 dark:active:bg-slate-800/75 dark:disabled:active:bg-slate-800/50 rounded transition-colors">
+                                <span class="file-name"></span>
+                                <svg role="img" class="arrow-icon text-slate-400 dark:text-slate-600 w-6 h-6">
+                                    <use xlink:href="/static/sprite.svg#icon-chevron-right"></use>
+                                </svg>
+                                <svg role="img" class="spinner-icon text-slate-400 dark:text-slate-600 w-6 h-6 animate-spin hidden">
+                                    <use xlink:href="/static/sprite.svg#icon-loader"></use>
+                                </svg>
+                            </button>
+                        </li>
+                    </template>
+                    <ul class="card" id="file-list"></ul>
+                    <small id="file-error" class="block text-rose-400 font-medium text-xs my-3"></small>
+                </div>
+                <div class="flex flex-row-reverse mt-2">
+                    <button type="submit" class="btn btn-success px-12" id="submit-btn">
+                        <span class="btn-text">Next</span>
+                        <div class="btn-icon-wrapper btn-spinner">
+                            <svg role="img">
+                                <use xlink:href="/static/sprite.svg#icon-loader"></use>
+                            </svg>
+                        </div>
+                    </button>
+                    <button type="button" class="btn btn-gray hidden mr-2" id="back-btn">
+                        <div class="btn-icon-wrapper">
+                            <svg role="img">
+                                <use xlink:href="/static/sprite.svg#icon-arrow-left"></use>
+                            </svg>
+                        </div>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="card text-sm md:col-start-4 md:col-end-9">
+        <div class="card-item text-center">
+            <h2 class="font-bold">
+                All Verified Applications
+            </h2>
+        </div>
+        <div class="card-item">
+            <a href="#" class="flex items-center justify-between hover:bg-slate-100 dark:hover:bg-slate-800/50 active:bg-slate-200 dark:active:bg-slate-800/75 transition-colors">
+                <span>Tinyman AMM V1.1</span>
+                <svg role="img" class="text-slate-400 dark:text-slate-600 w-6 h-6">
+                    <use xlink:href="/static/sprite.svg#icon-chevron-right"></use>
+                </svg>
+            </a>
+        </div>
+        <div class="card-item">
+            <a href="#" class="flex items-center justify-between hover:bg-slate-100 dark:hover:bg-slate-800/50 active:bg-slate-200 dark:active:bg-slate-800/75 transition-colors">
+                <span>Tinyman AMM V1.1</span>
+                <svg role="img" class="text-slate-400 dark:text-slate-600 w-6 h-6">
+                    <use xlink:href="/static/sprite.svg#icon-chevron-right"></use>
+                </svg>
+            </a>
+        </div>
+        <div class="card-item">
+            <a href="#" class="flex items-center justify-between hover:bg-slate-100 dark:hover:bg-slate-800/50 active:bg-slate-200 dark:active:bg-slate-800/75 transition-colors">
+                <span>Tinyman AMM V1.1</span>
+                <svg role="img" class="text-slate-400 dark:text-slate-600 w-6 h-6">
+                    <use xlink:href="/static/sprite.svg#icon-chevron-right"></use>
+                </svg>
+            </a>
+        </div>
+        <!-- EMPTY LIST -->
+        <div class="card-item">
+            <div class="text-center text-slate-400">
+                No verified applications.
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // INPUT VALIDATION
+    var inputs = document.querySelectorAll('input');
+    for (var i = 0; i < inputs.length; i++) {
+        inputs[i].addEventListener('invalid', e => {
+            e.target.closest('.input-group').classList.add('input-invalid');
+        });
+        inputs[i].addEventListener('input', e => {
+            e.target.closest('.input-group').classList.remove('input-invalid');
+        });
+    }
+    // FORM SUBMISSION
+    document.querySelector('#verify-form').addEventListener('submit', e => {
+        e.preventDefault();
+        var form = e.target;
+        var stage = form.dataset.stage;
+        var submitBtn = document.querySelector('#submit-btn');
+        var backBtn = document.querySelector('#back-btn');
+        var appIdInput = form.querySelector('#app-id-input');
+        var appIdInputError = form.querySelector('#app-id-input-error');
+        var githubRepoInput = form.querySelector('#github-repo-input');
+        var githubRepoInputError = form.querySelector('#github-repo-input-error');
+        var fileError = form.querySelector('#file-error');
+        submitBtn.classList.add('loading')
+        submitBtn.setAttribute('disabled', 'disabled');
+        backBtn.setAttribute('disabled', 'disabled');
+        if (stage == 1) {
+            // CHECK IF APPLICATION ID IS VALID AND IF IT'S NOT ALREADY VERIFIED
+            var appId = appIdInput.value;
+            appIdInput.setAttribute('disabled', 'disabled');
+            appIdInput.closest('.input-group').setAttribute('disabled', 'disabled');
+            // TODO HOSSEIN: CHANGE ENDPOINT URL TO VERIFY APPLICATION ID
+            fetch('https://jsonplaceholder.typicode.com/posts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    // TODO HOSSEIN: CHANGE REQUEST BODY
+                    appId: appId
+                })
+            })
+            .then(response => response.json())
+            .then(json => {
+                // TODO HOSSEIN: REMOVE TRUE IN NEXT LINE
+                if (json.success || true) {
+                    if (json.validated) {
+                        // APPLICATION ID ALREADY VERIFIED
+                        // ===> REDIRECT TO APPLICATION PAGE
+                        // TODO HOSSEIN: CHANGE REDIRECT URL
+                        window.location.href = '/application/' + appId;
+                    } else {
+                        // APPLICATION ID IS VALID AND NOT VERIFIED
+                        // ===> SHOW SECOND SECTION
+                        form.dataset.stage = 2;
+                        form.querySelector('[data-section="1"]').classList.add('hidden');
+                        form.querySelector('[data-section="2"]').classList.remove('hidden');
+                        submitBtn.classList.remove('loading');
+                        submitBtn.removeAttribute('disabled');
+                        backBtn.classList.remove('hidden');
+                        backBtn.removeAttribute('disabled');
+                        githubRepoInput.removeAttribute('disabled');
+                        githubRepoInput.closest('.input-group').removeAttribute('disabled');
+                        githubRepoInput.focus();
+                    }
+                } else {
+                    appIdInput.removeAttribute('disabled');
+                    appIdInput.closest('.input-group').removeAttribute('disabled');
+                    appIdInput.closest('.input-group').classList.add('input-invalid');
+                    appIdInputError.innerHTML = 'Application ID is invalid';
+                }
+            });
+        } else if (stage == 2) {
+            // CHECK IF GITHUB REPO IS VALID
+            var githubRepo = githubRepoInput.value;
+            githubRepoInput.setAttribute('disabled', 'disabled');
+            githubRepoInput.closest('.input-group').setAttribute('disabled', 'disabled');
+            // TODO HOSSEIN: CHANGE ENDPOINT URL TO VERIFY GITHUB REPO
+            fetch('https://jsonplaceholder.typicode.com/posts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    // TODO HOSSEIN: CHANGE REQUEST BODY
+                    githubRepo: githubRepo
+                })
+            })
+            .then(response => response.json())
+            .then(json => {
+                // TODO HOSSEIN: REMOVE TRUE IN NEXT LINE
+                if (json.success || true) {
+                    // GITHUB REPO IS VALID
+                    // ===> APPEND FILES TO FILE LIST FROM TEMPLATE
+                    // TODO HOSSEIN: REMOVE SAMPLE RESPONSE AND CHANGE TO REAL RESPONSE FROM API
+                    var sampleResponse = {
+                        files: [
+                            {
+                                name: 'file1.teal',
+                                id: '1231'
+                            },
+                            {
+                                name: 'file2.teal',
+                                id: '43252'
+                            }
+                        ]
+                    };
+                    var fileList = form.querySelector('#file-list');
+                    var fileTemplate = form.querySelector('#file-template');
+                    for (var i = 0; i < sampleResponse.files.length; i++) {
+                        var file = sampleResponse.files[i];
+                        var fileElement = fileTemplate.content.cloneNode(true);
+                        fileElement.querySelector('.file-name').innerHTML = file.name;
+                        fileElement.querySelector('.file-btn').dataset.id = file.id;
+                        // ON CLICK EVENT
+                        fileElement.querySelector('.file-btn').addEventListener('click', e => {
+                            var fileBtn = e.target.closest('.file-btn');
+                            document.querySelectorAll('.file-btn').forEach(btn => {
+                                btn.setAttribute('disabled', 'disabled');
+                            });
+                            fileBtn.querySelector('.arrow-icon').classList.add('hidden');
+                            fileBtn.querySelector('.spinner-icon').classList.remove('hidden');
+                            backBtn.setAttribute('disabled', 'disabled');
+                            fileError.innerHTML = '';
+                            // SEND FILE ID TO API
+                            // TODO HOSSEIN: CHANGE ENDPOINT URL
+                            fetch('https://jsonplaceholder.typicode.com/posts', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    // TODO HOSSEIN: CHANGE REQUEST BODY
+                                    fileId: fileBtn.dataset.id
+                                })
+                            })
+                            .then(response => response.json())
+                            .then(json => {
+                                // TODO HOSSEIN: REMOVE TRUE IN NEXT LINE
+                                if (json.success || true) {
+                                    // VALIDATED SUCCESSFULLY (FILES MATCH OR NOT)
+                                    // ===> REDIRECT TO FILE PAGE
+                                    // TODO HOSSEIN: CHANGE REDIRECT URL
+                                    window.location.href = '/application/' + json.appid;
+                                } else {
+                                    // ERROR OCCURRED
+                                    // ===> SHOW ERROR MESSAGE
+                                    fileBtn.querySelector('.arrow-icon').classList.remove('hidden');
+                                    fileBtn.querySelector('.spinner-icon').classList.add('hidden');
+                                    document.querySelectorAll('.file-btn').forEach(btn => {
+                                        btn.removeAttribute('disabled');
+                                    });
+                                    backBtn.removeAttribute('disabled');
+                                    fileError.innerHTML = 'Error has occured! Please try again.';
+                                }
+                            });
+                        });
+                        fileList.appendChild(fileElement);
+                    }
+                    // SHOW THIRD SECTION
+                    form.dataset.stage = 3;
+                    form.querySelector('[data-section="2"]').classList.add('hidden');
+                    form.querySelector('[data-section="3"]').classList.remove('hidden');
+                    submitBtn.classList.remove('loading');
+                    backBtn.removeAttribute('disabled');
+                } else {
+                    githubRepoInput.removeAttribute('disabled');
+                    githubRepoInput.closest('.input-group').removeAttribute('disabled');
+                    githubRepoInput.closest('.input-group').classList.add('input-invalid');
+                    githubRepoInputError.innerHTML = 'GitHub Repository is invalid';
+                    submitBtn.classList.remove('loading');
+                    submitBtn.removeAttribute('disabled');
+                    backBtn.classList.remove('hidden');
+                    backBtn.removeAttribute('disabled');
+                }
+            });
+        }
+    });
+    // BACK BUTTON
+    document.querySelector('#back-btn').addEventListener('click', e => {
+        var form = e.target.closest('form');
+        form.dataset.stage = 1;
+        // RESTART FORM AND SHOW FIRST SECTION
+        form.querySelector('[data-section="1"]').classList.remove('hidden');
+        form.querySelector('[data-section="2"]').classList.add('hidden');
+        form.querySelector('[data-section="3"]').classList.add('hidden');
+        form.querySelector('#app-id-input').value = '';
+        form.querySelector('#app-id-input').removeAttribute('disabled');
+        form.querySelector('#app-id-input').closest('.input-group').removeAttribute('disabled');
+        form.querySelector('#app-id-input').closest('.input-group').classList.remove('input-invalid');
+        form.querySelector('#app-id-input-error').innerHTML = '';
+        form.querySelector('#github-repo-input').value = '';
+        form.querySelector('#github-repo-input').setAttribute('disabled', 'disabled');
+        form.querySelector('#github-repo-input').closest('.input-group').setAttribute('disabled', 'disabled');
+        form.querySelector('#github-repo-input').closest('.input-group').classList.remove('input-invalid');
+        form.querySelector('#github-repo-input-error').innerHTML = '';
+        form.querySelector('#file-error').innerHTML = '';
+        form.querySelector('#file-list').innerHTML = '';
+        form.querySelector('#submit-btn').classList.remove('loading');
+        form.querySelector('#submit-btn').removeAttribute('disabled');
+        form.querySelector('#back-btn').classList.add('hidden');
+        form.querySelector('#back-btn').setAttribute('disabled', 'disabled');
+    });
+</script>
 {% endblock %}
