@@ -11,7 +11,7 @@
         <p class="text-slate-400 dark:text-slate-500 text-sm md:text-base">
             Twins allows you to easily compare an Algorand application with a source file on github and make sure the same source has been deployed to the Algorand blockchain.
         </p>
-        <a href="#" class="btn btn-success hidden md:inline-block mt-7">Check an Application</a>
+        <a href="#" class="btn btn-success hidden md:inline-block mt-7">Verify an Application</a>
         {% comment %} <button class="btn btn-success loading" disabled>
             <span class="btn-text">click here</span>
             <div class="btn-spinner">
@@ -58,9 +58,22 @@
                 </svg>
             </a>
         </div>
+        <!-- EMPTY LIST -->
+        <div class="card-item">
+            <div class="text-center text-slate-400">
+                No verified applications.
+            </div>
+        </div>
+        <!-- END/EMPTY LIST -->
         <div class="card-item text-center">
             <a href="#" class="link block">View All</a>
         </div>
     </div>
 </section>
+<a href="#" class="btn btn-success flex items-center justify-between md:hidden mt-7">
+    <span>Verify an Application</span>
+    <svg role="img" class="w-6 h-6">
+        <use xlink:href="/static/sprite.svg#icon-chevron-right"></use>
+    </svg>
+</a>
 {% endblock %}
