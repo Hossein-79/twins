@@ -22,8 +22,6 @@ Twins allows you to easily compare an Algorand application with a source file on
     <img src="readme/screenshot-dark-1.png" style="width:32%">
     <img src="readme/screenshot-dark-1.png" style="width:32%">
 </p>
-![screenshot](readme/screenshot-dark-1.png)
-![screenshot](readme/screenshot-dark-1.png)
 
 ## Technologies used
 * [Django](https://www.djangoproject.com)
