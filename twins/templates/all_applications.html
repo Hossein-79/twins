@@ -20,7 +20,7 @@
                 <div data-section="2" class="hidden">
                     <label class="input-group" for="github-repo-input" disabled>
                         <span class="input-label">GitHub Repository</span>
-                        <input type="url" id="github-repo-input" disabled required />
+                        <input type="url" id="github-repo-input" placeholder="https://" disabled required />
                     </label>
                     <small id="github-repo-input-error" class="input-error"></small>
                 </div>
@@ -70,36 +70,25 @@
                 All Verified Applications
             </h2>
         </div>
-        <div class="card-item">
-            <a href="#" class="flex items-center justify-between hover:bg-slate-100 dark:hover:bg-slate-800/50 active:bg-slate-200 dark:active:bg-slate-800/75 transition-colors">
-                <span>Tinyman AMM V1.1</span>
-                <svg role="img" class="text-slate-400 dark:text-slate-600 w-6 h-6">
-                    <use xlink:href="/static/sprite.svg#icon-chevron-right"></use>
-                </svg>
-            </a>
-        </div>
-        <div class="card-item">
-            <a href="#" class="flex items-center justify-between hover:bg-slate-100 dark:hover:bg-slate-800/50 active:bg-slate-200 dark:active:bg-slate-800/75 transition-colors">
-                <span>Tinyman AMM V1.1</span>
-                <svg role="img" class="text-slate-400 dark:text-slate-600 w-6 h-6">
-                    <use xlink:href="/static/sprite.svg#icon-chevron-right"></use>
-                </svg>
-            </a>
-        </div>
-        <div class="card-item">
-            <a href="#" class="flex items-center justify-between hover:bg-slate-100 dark:hover:bg-slate-800/50 active:bg-slate-200 dark:active:bg-slate-800/75 transition-colors">
-                <span>Tinyman AMM V1.1</span>
-                <svg role="img" class="text-slate-400 dark:text-slate-600 w-6 h-6">
-                    <use xlink:href="/static/sprite.svg#icon-chevron-right"></use>
-                </svg>
-            </a>
-        </div>
-        <!-- EMPTY LIST -->
-        <div class="card-item">
-            <div class="text-center text-slate-400">
-                No verified applications.
+        {% if applications %}
+            {% for app in applications %}
+            <div class="card-item">
+                <a href="/application/{{app.contract_id}}" class="flex items-center justify-between hover:bg-slate-100 dark:hover:bg-slate-800/50 active:bg-slate-200 dark:active:bg-slate-800/75 transition-colors">
+                    <span>{{app.repository_name}}</span>
+                    <svg role="img" class="text-slate-400 dark:text-slate-600 w-6 h-6">
+                        <use xlink:href="/static/sprite.svg#icon-chevron-right"></use>
+                    </svg>
+                </a>
             </div>
-        </div>
+            {% endfor %}
+        {% else %}
+            <!-- EMPTY LIST -->
+            <div class="card-item">
+                <div class="text-center text-slate-400">
+                    No verified applications.
+                </div>
+            </div>
+        {% endif %}
     </div>
 </div>
 <script>
@@ -133,26 +122,22 @@
             var appId = appIdInput.value;
             appIdInput.setAttribute('disabled', 'disabled');
             appIdInput.closest('.input-group').setAttribute('disabled', 'disabled');
-            // TODO HOSSEIN: CHANGE ENDPOINT URL TO VERIFY APPLICATION ID
-            fetch('https://jsonplaceholder.typicode.com/posts', {
+            fetch('/search_application/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    // TODO HOSSEIN: CHANGE REQUEST BODY
-                    appId: appId
+                    app_id: appId,
                 })
             })
             .then(response => response.json())
             .then(json => {
-                // TODO HOSSEIN: REMOVE TRUE IN NEXT LINE
-                if (json.success || true) {
+                if (json.success) {
                     if (json.validated) {
                         // APPLICATION ID ALREADY VERIFIED
                         // ===> REDIRECT TO APPLICATION PAGE
-                        // TODO HOSSEIN: CHANGE REDIRECT URL
-                        window.location.href = '/application/' + appId;
+                        window.location.href = '/application/' + json.app_id;
                     } else {
                         // APPLICATION ID IS VALID AND NOT VERIFIED
                         // ===> SHOW SECOND SECTION
@@ -171,7 +156,9 @@
                     appIdInput.removeAttribute('disabled');
                     appIdInput.closest('.input-group').removeAttribute('disabled');
                     appIdInput.closest('.input-group').classList.add('input-invalid');
-                    appIdInputError.innerHTML = 'Application ID is invalid';
+                    submitBtn.classList.remove('loading');
+                    submitBtn.removeAttribute('disabled');
+                    appIdInputError.innerHTML = json.message;
                 }
             });
         } else if (stage == 2) {
@@ -179,40 +166,35 @@
             var githubRepo = githubRepoInput.value;
             githubRepoInput.setAttribute('disabled', 'disabled');
             githubRepoInput.closest('.input-group').setAttribute('disabled', 'disabled');
-            // TODO HOSSEIN: CHANGE ENDPOINT URL TO VERIFY GITHUB REPO
-            fetch('https://jsonplaceholder.typicode.com/posts', {
+            fetch('/get_repo/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    // TODO HOSSEIN: CHANGE REQUEST BODY
-                    githubRepo: githubRepo
+                    github_repo: githubRepo
                 })
             })
             .then(response => response.json())
             .then(json => {
                 // TODO HOSSEIN: REMOVE TRUE IN NEXT LINE
-                if (json.success || true) {
+                if (json.success) {
                     // GITHUB REPO IS VALID
                     // ===> APPEND FILES TO FILE LIST FROM TEMPLATE
                     // TODO HOSSEIN: REMOVE SAMPLE RESPONSE AND CHANGE TO REAL RESPONSE FROM API
-                    var sampleResponse = {
-                        files: [
+                    var responseList = {files: []};
+                    json.files.forEach(file => 
+                        responseList.files.push(
                             {
-                                name: 'file1.teal',
-                                id: '1231'
-                            },
-                            {
-                                name: 'file2.teal',
-                                id: '43252'
+                                name: file,
+                                id: file
                             }
-                        ]
-                    };
+                        )
+                    )
                     var fileList = form.querySelector('#file-list');
                     var fileTemplate = form.querySelector('#file-template');
-                    for (var i = 0; i < sampleResponse.files.length; i++) {
-                        var file = sampleResponse.files[i];
+                    for (var i = 0; i < responseList.files.length; i++) {
+                        var file = responseList.files[i];
                         var fileElement = fileTemplate.content.cloneNode(true);
                         fileElement.querySelector('.file-name').innerHTML = file.name;
                         fileElement.querySelector('.file-btn').dataset.id = file.id;

@@ -11,7 +11,7 @@
         <p class="text-slate-400 dark:text-slate-500 text-sm md:text-base">
             Twins allows you to easily compare an Algorand application with a source file on github and make sure the same source has been deployed to the Algorand blockchain.
         </p>
-        <a href="#" class="btn btn-success hidden md:inline-block mt-7">Verify an Application</a>
+        <a href="/all_applications" class="btn btn-success hidden md:inline-block mt-7">Verify an Application</a>
         {% comment %} <button class="btn btn-success loading" disabled>
             <span class="btn-text">click here</span>
             <div class="btn-spinner">
@@ -50,27 +50,31 @@
                 Last Verified Applications
             </h2>
         </div>
-        <div class="card-item">
-            <a href="#" class="flex items-center justify-between hover:bg-slate-100 dark:hover:bg-slate-800/50 active:bg-slate-200 dark:active:bg-slate-800/75 transition-colors">
-                <span>Tinyman AMM V1.1</span>
-                <svg role="img" class="text-slate-400 dark:text-slate-600 w-6 h-6">
-                    <use xlink:href="/static/sprite.svg#icon-chevron-right"></use>
-                </svg>
-            </a>
-        </div>
-        <!-- EMPTY LIST -->
-        <div class="card-item">
-            <div class="text-center text-slate-400">
-                No verified applications.
+        {% if applications %}
+            {% for app in applications %}
+            <div class="card-item">
+                <a href="/application/{{app.contract_id}}" class="flex items-center justify-between hover:bg-slate-100 dark:hover:bg-slate-800/50 active:bg-slate-200 dark:active:bg-slate-800/75 transition-colors">
+                    <span>{{app.repository_name}}</span>
+                    <svg role="img" class="text-slate-400 dark:text-slate-600 w-6 h-6">
+                        <use xlink:href="/static/sprite.svg#icon-chevron-right"></use>
+                    </svg>
+                </a>
             </div>
-        </div>
-        <!-- END/EMPTY LIST -->
+            {% endfor %}
+        {% else %}
+        <!-- EMPTY LIST -->
+            <div class="card-item">
+                <div class="text-center text-slate-400">
+                    No verified applications.
+                </div>
+            </div>
+        {% endif %}
         <div class="card-item text-center">
-            <a href="#" class="link block">View All</a>
+            <a href="/all_applications" class="link block">View All</a>
         </div>
     </div>
 </section>
-<a href="#" class="btn btn-success flex items-center justify-between md:hidden mt-7">
+<a href="/all_applications" class="btn btn-success flex items-center justify-between md:hidden mt-7">
     <span>Verify an Application</span>
     <svg role="img" class="w-6 h-6">
         <use xlink:href="/static/sprite.svg#icon-chevron-right"></use>

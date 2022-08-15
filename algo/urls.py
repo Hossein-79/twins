@@ -20,8 +20,12 @@ from twins import views
 
 urlpatterns = [
     path('', views.index),
+    path('all_applications/', views.all_applications),
+    path('search_application/', views.search_application),
+    path('application/<int:app_id>', views.get_application),
+    path('get_repo/', views.get_repo_contract_files),
+
     path('choose/', views.choose_repo_file),
-    path('application/', views.search_application),
     path('check_app/', views.check_application),
     path('test1/', views.test1),
     path('test2/', views.test2),
