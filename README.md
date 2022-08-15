@@ -23,6 +23,8 @@ Twins allows you to easily compare an Algorand application with a source file on
     <img src="readme/screenshot-dark-1.png" style="width:32%">
 </p>
 
+[Prototype UI design on figma](https://www.figma.com/file/oTgX20Xsb73qIbMKMbG2AT/Twins?node-id=5%3A2)
+
 ## Technologies used
 * [Django](https://www.djangoproject.com)
 * [SQLite](https://www.sqlite.org/)
