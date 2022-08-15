@@ -1,6 +1,6 @@
 <div align="center">
     <a href="https://github.com/Hossein-79/twins">
-        <img src="readme/shield.svg" alt="Logo" width="100" height="100">
+        <img src="readme/shield.png" alt="Logo" width="101" height="121">
     </a>
     <h1 align="center">Twins</h1>
     <p align="center">
