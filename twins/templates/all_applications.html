@@ -181,7 +181,6 @@
                 if (json.success) {
                     // GITHUB REPO IS VALID
                     // ===> APPEND FILES TO FILE LIST FROM TEMPLATE
-                    // TODO HOSSEIN: REMOVE SAMPLE RESPONSE AND CHANGE TO REAL RESPONSE FROM API
                     var responseList = {files: []};
                     json.files.forEach(file => 
                         responseList.files.push(
@@ -210,14 +209,17 @@
                             fileError.innerHTML = '';
                             // SEND FILE ID TO API
                             // TODO HOSSEIN: CHANGE ENDPOINT URL
-                            fetch('https://jsonplaceholder.typicode.com/posts', {
+                            fetch('/check/', {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json'
                                 },
                                 body: JSON.stringify({
                                     // TODO HOSSEIN: CHANGE REQUEST BODY
-                                    fileId: fileBtn.dataset.id
+                                    app_id: appIdInput.value,
+                                    file_path: fileBtn.dataset.id,
+                                    github_repo : json.full_name,
+
                                 })
                             })
                             .then(response => response.json())
@@ -253,7 +255,7 @@
                     githubRepoInput.removeAttribute('disabled');
                     githubRepoInput.closest('.input-group').removeAttribute('disabled');
                     githubRepoInput.closest('.input-group').classList.add('input-invalid');
-                    githubRepoInputError.innerHTML = 'GitHub Repository is invalid';
+                    githubRepoInputError.innerHTML = json.message;
                     submitBtn.classList.remove('loading');
                     submitBtn.removeAttribute('disabled');
                     backBtn.classList.remove('hidden');

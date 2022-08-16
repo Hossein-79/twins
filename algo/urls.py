@@ -24,6 +24,7 @@ urlpatterns = [
     path('search_application/', views.search_application),
     path('application/<int:app_id>', views.get_application),
     path('get_repo/', views.get_repo_contract_files),
+    path('check/', views.check_application),
 
     path('choose/', views.choose_repo_file),
     path('check_app/', views.check_application),

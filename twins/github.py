@@ -1,5 +1,5 @@
-from multiprocessing import context
 from github import Github
+import requests
 
 g = Github("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")
 
@@ -25,4 +25,29 @@ def get_repo(repo_url):
         context['success'] = True
     except:
         context['success'] = False
+        context['message'] = 'GitHub Repository is invalid'
+
+    if not context['files']:
+        context['success'] = False
+        context['message'] = 'Repository does not contain any \'.teal\' files'
+
     return context
+
+def get_last_commit_sha(repo_url):
+    try:
+        repo = g.get_repo(repo_url)
+        commits = repo.get_commits()
+        return commits[0].sha
+    except:
+        return ''
+
+def get_contract_as_string(repo_url, repo_path):
+    try:
+        repo = g.get_repo(repo_url)
+        file = repo.get_contents(repo_path)
+        download_url = file.download_url
+        r = requests.get(download_url)
+        contract_file = r.text
+        return contract_file
+    except:
+        return ''

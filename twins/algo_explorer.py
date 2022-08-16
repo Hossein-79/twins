@@ -1,5 +1,6 @@
 import json
 from multiprocessing import context
+from unittest import result
 import requests
 
 def get_application_by_id(app_id):
@@ -18,4 +19,9 @@ def get_application_by_id(app_id):
         context['exist'] = False
         context['message'] = obj['message']
     return context
+    
+def compile_teal(contract_file):
+    r = requests.post('https://node.algoexplorerapi.io/v2/teal/compile/', data=contract_file, headers={'Content-Type':'text/plain'})
+    obj = json.loads(r.text)
+    return obj['result']
     
