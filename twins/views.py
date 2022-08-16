@@ -101,7 +101,9 @@ def check_application(request):
         context['app_id'] = app['application']['id']
 
         if compiled == approval_program:
-            application = Application.objects.create()
+            application = Application.objects.create(
+                
+            )
             print('true')
         else:
             print('false')
