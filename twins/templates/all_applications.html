@@ -30,15 +30,20 @@
                     </p>
                     <template id="file-template">
                         <li class="card-item">
-                            <button type="button" class="file-btn flex items-center justify-between w-full hover:bg-slate-100 dark:hover:bg-slate-800/50 active:bg-slate-200 disabled:active:bg-slate-800/50 disabled:bg-slate-100 dark:disabled:bg-slate-800/50 dark:active:bg-slate-800/75 dark:disabled:active:bg-slate-800/50 rounded transition-colors">
-                                <span class="file-name"></span>
-                                <svg role="img" class="arrow-icon text-slate-400 dark:text-slate-600 w-6 h-6">
-                                    <use xlink:href="/static/sprite.svg#icon-chevron-right"></use>
-                                </svg>
-                                <svg role="img" class="spinner-icon text-slate-400 dark:text-slate-600 w-6 h-6 animate-spin hidden">
-                                    <use xlink:href="/static/sprite.svg#icon-loader"></use>
-                                </svg>
-                            </button>
+                            <!-- TODO HOSSEIN: CHANGE ACTION -->
+                            <form method="post" action="">
+                                <input type="hidden" name="id" />
+                                <input type="hidden" name="name" />
+                                <button type="submit" class="file-btn flex items-center justify-between w-full hover:bg-slate-100 dark:hover:bg-slate-800/50 active:bg-slate-200 disabled:active:bg-slate-800/50 disabled:bg-slate-100 dark:disabled:bg-slate-800/50 dark:active:bg-slate-800/75 dark:disabled:active:bg-slate-800/50 rounded transition-colors">
+                                    <span class="file-name"></span>
+                                    <svg role="img" class="arrow-icon text-slate-400 dark:text-slate-600 w-6 h-6">
+                                        <use xlink:href="/static/sprite.svg#icon-chevron-right"></use>
+                                    </svg>
+                                    <svg role="img" class="spinner-icon text-slate-400 dark:text-slate-600 w-6 h-6 animate-spin hidden">
+                                        <use xlink:href="/static/sprite.svg#icon-loader"></use>
+                                    </svg>
+                                </button>
+                            </form>
                         </li>
                     </template>
                     <ul class="card" id="file-list"></ul>
@@ -197,6 +202,8 @@
                         var fileElement = fileTemplate.content.cloneNode(true);
                         fileElement.querySelector('.file-name').innerHTML = file.name;
                         fileElement.querySelector('.file-btn').dataset.id = file.id;
+                        fileElement.querySelector('[name="id"]').value = file.id;
+                        fileElement.querySelector('[name="name"]').value = file.name;
                         // ON CLICK EVENT
                         fileElement.querySelector('.file-btn').addEventListener('click', e => {
                             var fileBtn = e.target.closest('.file-btn');
@@ -209,40 +216,40 @@
                             fileError.innerHTML = '';
                             // SEND FILE ID TO API
                             // TODO HOSSEIN: CHANGE ENDPOINT URL
-                            fetch('/check/', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({
-                                    // TODO HOSSEIN: CHANGE REQUEST BODY
-                                    app_id: appIdInput.value,
-                                    file_path: fileBtn.dataset.id,
-                                    github_repo : json.full_name,
-
-                                })
-                            })
-                            .then(response => response.json())
-                            .then(json => {
-                                // TODO HOSSEIN: REMOVE TRUE IN NEXT LINE
-                                if (json.success || true) {
-                                    // VALIDATED SUCCESSFULLY (FILES MATCH OR NOT)
-                                    // ===> REDIRECT TO FILE PAGE
-                                    // TODO HOSSEIN: CHANGE REDIRECT URL
-                                    window.location.href = '/application/' + json.appid;
-                                } else {
-                                    // ERROR OCCURRED
-                                    // ===> SHOW ERROR MESSAGE
-                                    fileBtn.querySelector('.arrow-icon').classList.remove('hidden');
-                                    fileBtn.querySelector('.spinner-icon').classList.add('hidden');
-                                    document.querySelectorAll('.file-btn').forEach(btn => {
-                                        btn.removeAttribute('disabled');
-                                    });
-                                    backBtn.removeAttribute('disabled');
-                                    fileError.innerHTML = 'Error has occured! Please try again.';
-                                }
-                            });
-                        });
+//                            fetch('/check/', {
+//                                method: 'POST',
+//                                headers: {
+//                                    'Content-Type': 'application/json'
+//                                },
+//                                body: JSON.stringify({
+//                                    // TODO HOSSEIN: CHANGE REQUEST BODY
+//                                    app_id: appIdInput.value,
+//                                    file_path: fileBtn.dataset.id,
+//                                    github_repo : json.full_name,
+//
+//                                })
+//                            })
+//                            .then(response => response.json())
+//                            .then(json => {
+//                                // TODO HOSSEIN: REMOVE TRUE IN NEXT LINE
+//                                if (json.success || true) {
+//                                    // VALIDATED SUCCESSFULLY (FILES MATCH OR NOT)
+//                                    // ===> REDIRECT TO FILE PAGE
+//                                    // TODO HOSSEIN: CHANGE REDIRECT URL
+//                                    window.location.href = '/application/' + json.appid;
+//                                } else {
+//                                    // ERROR OCCURRED
+//                                    // ===> SHOW ERROR MESSAGE
+//                                    fileBtn.querySelector('.arrow-icon').classList.remove('hidden');
+//                                    fileBtn.querySelector('.spinner-icon').classList.add('hidden');
+//                                    document.querySelectorAll('.file-btn').forEach(btn => {
+//                                        btn.removeAttribute('disabled');
+//                                    });
+//                                    backBtn.removeAttribute('disabled');
+//                                    fileError.innerHTML = 'Error has occured! Please try again.';
+//                                }
+//                            });
+//                        });
                         fileList.appendChild(fileElement);
                     }
                     // SHOW THIRD SECTION
@@ -262,6 +269,8 @@
                     backBtn.removeAttribute('disabled');
                 }
             });
+        } else {
+            return;
         }
     });
     // BACK BUTTON
