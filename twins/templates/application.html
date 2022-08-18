@@ -36,16 +36,16 @@
                 <ul>
                     <li class="flex items-center justify-between mb-3">
                         <span class="text-slate-400">Commit</span>
-                        <span>#a055a31</span>
+                        <span>{{app.commit_hash}}</span>
                     </li>
                     <li class="flex items-center justify-between">
                         <span class="text-slate-400">Date Checked</span>
-                        <span>Jan 18, 2022 04:19</span>
+                        <span>{{app.check_date}}</span>
                     </li>
                 </ul>
             </div>
             <div class="card-item">
-                <a href="#" class="flex items-center justify-between hover:bg-slate-100 dark:hover:bg-slate-800/50 active:bg-slate-200 dark:active:bg-slate-800/75 transition-colors">
+                <a href="https://algoexplorer.io/application/{{app.contract_id}}" target="_blank" class="flex items-center justify-between hover:bg-slate-100 dark:hover:bg-slate-800/50 active:bg-slate-200 dark:active:bg-slate-800/75 transition-colors">
                     <span>AlgoExplorer</span>
                     <svg role="img" class="text-slate-400 dark:text-slate-600 w-6 h-6">
                         <use xlink:href="/static/sprite.svg#icon-chevron-right"></use>
@@ -53,7 +53,7 @@
                 </a>
             </div>
             <div class="card-item">
-                <a href="#" class="flex items-center justify-between hover:bg-slate-100 dark:hover:bg-slate-800/50 active:bg-slate-200 dark:active:bg-slate-800/75 transition-colors">
+                <a href="https://github.com/{{app.owner_name}}/{{app.repository_name}}" target="_blank" class="flex items-center justify-between hover:bg-slate-100 dark:hover:bg-slate-800/50 active:bg-slate-200 dark:active:bg-slate-800/75 transition-colors">
                     <span>Github URL</span>
                     <svg role="img" class="text-slate-400 dark:text-slate-600 w-6 h-6">
                         <use xlink:href="/static/sprite.svg#icon-chevron-right"></use>
@@ -69,42 +69,6 @@
                 </div>
             </div>
         </div>
-        <!-- END/SUCCESS -->
-        <!-- ERROR -->
-        <div class="card text-sm md:col-start-2 md:col-end-4">
-            <div class="card-item text-center">
-                <h2 class="font-bold flex items-center justify-between">
-                    <strong class="font-bold">552635992</strong>
-                    <svg role="img" class="text-rose-400 w-5 h-5">
-                        <use xlink:href="/static/sprite.svg#icon-shield-x"></use>
-                    </svg>
-                </h2>
-            </div>
-            <div class="card-item">
-                <div>
-                    <p class="text-base font-semibold text-rose-400">
-                        This application has been checked and does not match with the given file on Github.
-                    </p>
-                </div>
-            </div>
-            <div class="card-item">
-                <a href="#" class="flex items-center justify-between hover:bg-slate-100 dark:hover:bg-slate-800/50 active:bg-slate-200 dark:active:bg-slate-800/75 transition-colors">
-                    <span>AlgoExplorer</span>
-                    <svg role="img" class="text-slate-400 dark:text-slate-600 w-6 h-6">
-                        <use xlink:href="/static/sprite.svg#icon-chevron-right"></use>
-                    </svg>
-                </a>
-            </div>
-            <div class="card-item">
-                <a href="#" class="flex items-center justify-between hover:bg-slate-100 dark:hover:bg-slate-800/50 active:bg-slate-200 dark:active:bg-slate-800/75 transition-colors">
-                    <span>Github URL</span>
-                    <svg role="img" class="text-slate-400 dark:text-slate-600 w-6 h-6">
-                        <use xlink:href="/static/sprite.svg#icon-chevron-right"></use>
-                    </svg>
-                </a>
-            </div>
-        </div>
-        <!-- END/ERROR -->
     </div>
 
 {% endblock %}

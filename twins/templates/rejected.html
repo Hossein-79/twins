@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+    {% block content %}
+    <div class="md:grid md:grid-cols-4">
+        <!-- ERROR -->
+        <div class="card text-sm md:col-start-2 md:col-end-4">
+            <div class="card-item text-center">
+                <h2 class="font-bold flex items-center justify-between">
+                    <strong class="font-bold">{{app_id}}</strong>
+                    <svg role="img" class="text-rose-400 w-5 h-5">
+                        <use xlink:href="/static/sprite.svg#icon-shield-x"></use>
+                    </svg>
+                </h2>
+            </div>
+            <div class="card-item">
+                <div>
+                    <p class="text-base font-semibold text-rose-400">
+                        This application has been checked and does not match with the given file on Github.
+                    </p>
+                </div>
+            </div>
+            <div class="card-item">
+                <a href="https://algoexplorer.io/application/{{app_id}}" target="_blank" class="flex items-center justify-between hover:bg-slate-100 dark:hover:bg-slate-800/50 active:bg-slate-200 dark:active:bg-slate-800/75 transition-colors">
+                    <span>AlgoExplorer</span>
+                    <svg role="img" class="text-slate-400 dark:text-slate-600 w-6 h-6">
+                        <use xlink:href="/static/sprite.svg#icon-chevron-right"></use>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <!-- END/ERROR -->
+    </div>
+
+    {% endblock %}

@@ -1,5 +1,4 @@
 import json
-from sre_constants import SUCCESS
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -7,21 +6,14 @@ from . import github
 from . import algo_explorer
 from .models import Application
 
-#test pages
-def test1(request):
-    return JsonResponse({'ss':'sss'})
-
-def test2(request):
-    return render(request, 'test2.html')
-
 # Create your views here.
 def index(request):
-    applications = Application.objects.all().filter(expired=False)[:3]
+    applications = Application.objects.all().filter(expired=False).order_by('-id')[:3]
     context = {'applications': applications}
     return render(request, 'index.html', context)
 
 def all_applications(request):
-    applications = Application.objects.all().filter(expired=False)
+    applications = Application.objects.all().filter(expired=False).order_by('-id')
     context = {'applications': applications}
     return render(request, 'all_applications.html',context)
 
@@ -64,7 +56,9 @@ def get_repo_contract_files(request):
         repo_url = body['github_repo']
 
         try:
-            repo_path = repo_url.split('github.com/')[1]    
+            repo_path = '/'.join(repo_url.split('github.com/')[1].split('/')[0:2])
+            print(repo_path)
+            print(repo_url.split('github.com/')[1])
             context = github.get_repo(repo_path)
         except:
             context['success'] = False
@@ -80,20 +74,23 @@ def check_application(request):
         repo_url = body['github_repo']
         file_path = body['file_path']
         app_id = body['app_id']
-
-        print(repo_url, file_path, app_id)
-
+ 
         app = algo_explorer.get_application_by_id(app_id)
         if app['exist'] == False:
             context['success'] = False
             return JsonResponse(context)
 
-        approval_program = app['application']['params']['approval-program']
+        if Application.objects.filter(contract_id = app_id).exists():
+            context['success'] = False
+            return JsonResponse(context)
 
+        approval_program = app['application']['params']['approval-program']
+        
         program_string = github.get_contract_as_string(repo_url, file_path)
         if program_string is '':
             context['success'] = False
             return JsonResponse(context)
+
 
         compiled = algo_explorer.compile_teal(program_string)
 
@@ -101,37 +98,40 @@ def check_application(request):
         context['app_id'] = app['application']['id']
 
         if compiled == approval_program:
+            repo_owner , repo_name = repo_url.split('/')
+            last_commit = github.get_last_commit_sha(repo_url)
             application = Application.objects.create(
-                
+                repository_name = repo_name,
+                owner_name = repo_owner,
+                contract_id = app['application']['id'],
+                commit_hash = last_commit,
+                expired = False
             )
-            print('true')
-        else:
-            print('false')
 
         return JsonResponse(context)
 
-
-
-
-
-
-
-
-
-
-
-
-
 def get_application(request, app_id):
-    print(app_id)
     context = {}
     try:
         app = Application.objects.get(contract_id = app_id)
         context['app'] = app
         return render(request, 'application.html', context)
-        #return JsonResponse({'validated' : True, 'app_id' : app.contract_id})
     except:
-        return JsonResponse({'sdfs' : 'sdf'})
+        context['app_id'] = app_id
+        return render(request, 'rejected.html', context)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     # context = algo_explorer.get_application_by_id(app_id)
     # return render(request, 'search_application.html', context)
