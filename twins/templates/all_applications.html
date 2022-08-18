@@ -54,11 +54,7 @@
                         </div>
                     </button>
                     <button type="button" class="btn btn-gray hidden mr-2" id="back-btn">
-                        <div class="btn-icon-wrapper">
-                            <svg role="img">
-                                <use xlink:href="/static/sprite.svg#icon-arrow-left"></use>
-                            </svg>
-                        </div>
+                        Reset
                     </button>
                 </div>
             </form>
@@ -181,6 +177,7 @@
                 if (json.success) {
                     // GITHUB REPO IS VALID
                     // ===> APPEND FILES TO FILE LIST FROM TEMPLATE
+                    submitBtn.classList.add('hidden');
                     var responseList = {files: []};
                     json.files.forEach(file => 
                         responseList.files.push(
@@ -281,7 +278,7 @@
         form.querySelector('#github-repo-input-error').innerHTML = '';
         form.querySelector('#file-error').innerHTML = '';
         form.querySelector('#file-list').innerHTML = '';
-        form.querySelector('#submit-btn').classList.remove('loading');
+        form.querySelector('#submit-btn').classList.remove('loading', 'hidden');
         form.querySelector('#submit-btn').removeAttribute('disabled');
         form.querySelector('#back-btn').classList.add('hidden');
         form.querySelector('#back-btn').setAttribute('disabled', 'disabled');
