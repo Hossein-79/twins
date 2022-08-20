@@ -7,31 +7,31 @@
         A simple and intuitive web application built with Django that helps you verify a smart contract's validity on Algorand blockchain. 
         <br />
         <br />
-        <!-- TODO: ADD DEMO URL -->
-        <a href="#">View Demo</a>
+        <a href="https://twins.bellman.top" target="_blank">View Demo</a>
     </p>
 </div>
 
-## About The Project
+## ℹ️ About The Project
 ![Homepage Screen Shot](readme/cover-dark.png)
 Twins allows you to easily compare an Algorand application with a source file on github and make sure the same source has been deployed to the Algorand blockchain.
 
-## Screenshots
-<p style="display:flex;justify-content:space-between;">
-    <img src="readme/screenshot1.png" style="width: 33.333%">
-    <img src="readme/screenshot2.png" style="width: 33.333%">
-    <img src="readme/screenshot3.png" style="width: 33.333%">
-</p>
+## 📸 Screenshots
+<div style="display:flex;flex-direction:row;justify-content:space-around;">
+    <img src="readme/screenshot1.png" style="width:32%">
+    <img src="readme/screenshot2.png" style="width:32%">
+    <img src="readme/screenshot3.png" style="width:32%">
+</div>
 
-[Prototype UI design on figma](https://www.figma.com/file/oTgX20Xsb73qIbMKMbG2AT/Twins?node-id=5%3A2)
 
-## Technologies used
+🔗 [Prototype UI design on figma](https://www.figma.com/file/oTgX20Xsb73qIbMKMbG2AT/Twins?node-id=5%3A2)
+
+## 💻 Technologies used
 * [Django](https://www.djangoproject.com)
 * [SQLite](https://www.sqlite.org/)
 * [Tailwind](https://tailwindcss.com)
 * [Feather icons](https://feathericons.com)
 
-## Getting Started
+## 🔢 Getting Started
 To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
@@ -70,7 +70,7 @@ python3 manage.py runserver 0.0.0.0:8000
 ~ npx tailwindcss -i ./twins/static/style.src.css -o ./twins/static/style.css --watch
 ```
 
-## Contributing
+## 🤝 Contributing
 Twins was developed for the [Algorand GreenHouse Hackathon](https://gitcoin.co/hackathon/greenhouse). If you wish to improve this project, please fork the repo and create a pull request.
 
 1. Fork the Project
@@ -79,10 +79,10 @@ Twins was developed for the [Algorand GreenHouse Hackathon](https://gitcoin.co/h
 4. Push to the Branch (`git push origin contrib/improvements`)
 5. Open a Pull Request
 
-## License
+## 🪪 License
 Distributed under the MIT License. See [`LICENSE`](LICENSE) for more information.
 
-## Contact
+## 🤙 Contact
 If you have any questions or suggestions regarding this project feel free to reach either of us.
 
 ✉️ amousavig@icloud.com
