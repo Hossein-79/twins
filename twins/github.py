@@ -1,7 +1,7 @@
 from github import Github
 import requests
 
-g = Github("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")
+g = Github("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")
 
 def extend_repo(repo_contents, repo):
     program_files = []

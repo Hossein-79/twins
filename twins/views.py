@@ -122,7 +122,6 @@ def get_application(request, app_id):
             approval_program = check_app['application']['params']['approval-program']
             program_string = github.get_contract_as_string(f'{app.owner_name}/{app.repository_name}', app.file_path)
             compiled = algo_explorer.compile_teal(program_string)
-            print(compiled)
             if compiled == approval_program:
                 app.expired = False
                 app.commit_hash = last_hash
@@ -152,7 +151,6 @@ def get_badge(request, app_id):
                 approval_program = check_app['application']['params']['approval-program']
                 program_string = github.get_contract_as_string(f'{app.owner_name}/{app.repository_name}', app.file_path)
                 compiled = algo_explorer.compile_teal(program_string)
-                print(compiled)
                 if compiled == approval_program:
                     app.expired = False
                     app.commit_hash = last_hash
