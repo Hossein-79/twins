@@ -13,7 +13,7 @@
 </div>
 
 ## About The Project
-![Homepage Screen Shot](readme/cover.png)
+![Homepage Screen Shot](readme/cover-dark.png)
 Twins allows you to easily compare an Algorand application with a source file on github and make sure the same source has been deployed to the Algorand blockchain.
 
 ## Screenshots
