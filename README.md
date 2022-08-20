@@ -63,7 +63,7 @@ To get a local copy up and running follow these simple example steps.
 ```
 6. Start the local server on port 8000 and watch for changes.
 ```
-python3 manage.py runserver 0.0.0.0:8000
+~ python3 manage.py runserver
 ```
 7. (Optional) Watch for CSS changes.
 ```
