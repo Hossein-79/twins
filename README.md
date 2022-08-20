@@ -17,10 +17,10 @@
 Twins allows you to easily compare an Algorand application with a source file on github and make sure the same source has been deployed to the Algorand blockchain.
 
 ## Screenshots
-<p style="display:flex;justify-content:space-between">
-    <img src="readme/screenshot-dark-1.png" style="width:32%">
-    <img src="readme/screenshot-dark-1.png" style="width:32%">
-    <img src="readme/screenshot-dark-1.png" style="width:32%">
+<p style="display:flex;justify-content:space-between;">
+    <img src="readme/screenshot1.png" style="width: 33.333%">
+    <img src="readme/screenshot2.png" style="width: 33.333%">
+    <img src="readme/screenshot3.png" style="width: 33.333%">
 </p>
 
 [Prototype UI design on figma](https://www.figma.com/file/oTgX20Xsb73qIbMKMbG2AT/Twins?node-id=5%3A2)
