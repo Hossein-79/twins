@@ -1,0 +1,9 @@
+{
+    "app": "twins",
+    "disks":[
+        {
+            "name" : "sqlite",
+            "mountTo" : "data"
+        }
+    ]
+}

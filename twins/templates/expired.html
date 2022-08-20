@@ -12,31 +12,31 @@
     {% endif %} {% endcomment %}
 
     <div class="md:grid md:grid-cols-4">
-        <!-- SUCCESS -->
+        <!-- EXPIRED -->
         <div class="card text-sm md:col-start-2 md:col-end-4">
             <div class="card-item text-center">
                 <h2 class="font-bold flex items-center justify-between">
                     <strong class="font-bold">{{app.contract_id}}</strong>
-                    <svg role="img" class="text-emerald-500 w-5 h-5">
+                    <svg role="img" class="text-slate-400 w-5 h-5">
                         <use xlink:href="/static/sprite.svg#icon-shield-check"></use>
                     </svg>
                 </h2>
             </div>
             <div class="card-item">
                 <div>
-                    <p class="text-base font-semibold text-emerald-500 mb-3">
-                        This application has been checked and matched with the given file on Github.
+                    <p class="text-base font-semibold text-slate-400 mb-3">
+                        This application has been checked and matched with a previous version of the repository.
                     </p>
                     <p class="text-slate-400">
-                        But that doesn’t mean that it’s safe to use! Check the source and make sure what it is actually doing behind the scene before trusting it with your hard earned money.
+                        The source code on GitHub no longer matches the one deployed to the Algorand blockchain! Check the source and make sure what it is actually doing behind the scene before trusting it with your hard earned money.
                     </p>
                 </div>
             </div>
             <div class="card-item">
                 <ul>
-                    <li class="flex items-center justify-between mb-3">
+                    <li class="flex items-start justify-between mb-3">
                         <span class="text-slate-400">Commit</span>
-                        <span>{{app.commit_hash}}</span>
+                        <span class="break-all text-right ml-5">{{app.commit_hash}}</span>
                     </li>
                     <li class="flex items-center justify-between">
                         <span class="text-slate-400">Date Checked</span>
@@ -53,20 +53,12 @@
                 </a>
             </div>
             <div class="card-item">
-                <a href="https://github.com/{{app.owner_name}}/{{app.repository_name}}" target="_blank" class="flex items-center justify-between hover:bg-slate-100 dark:hover:bg-slate-800/50 active:bg-slate-200 dark:active:bg-slate-800/75 transition-colors">
+                <a href="https://github.com/{{app.owner_name}}/{{app.repository_name}}/commit/{{app.commit_hash}}" target="_blank" class="flex items-center justify-between hover:bg-slate-100 dark:hover:bg-slate-800/50 active:bg-slate-200 dark:active:bg-slate-800/75 transition-colors">
                     <span>Github URL</span>
                     <svg role="img" class="text-slate-400 dark:text-slate-600 w-6 h-6">
                         <use xlink:href="/static/sprite.svg#icon-chevron-right"></use>
                     </svg>
                 </a>
-            </div>
-            <div class="card-item">
-                <div class="flex flex-col">
-                    <span class="mx-auto mb-3">Github Badge</span>
-                    <div class="selectable bg-white dark:bg-black border border-slate-300 dark:border-slate-600 rounded cursor-text px-3 py-2">
-                        &lt;a href="https://twins.bellman.top/application/{{app.contract_id}}"&gt;&lt;img src=”https://twins.bellman.top/badge/{{app.contract_id}}” alt=”Algo Application Verification” /&gt;&lt;/a&gt;
-                    </div>
-                </div>
             </div>
         </div>
     </div>
