@@ -52,16 +52,20 @@ To get a local copy up and running follow these simple example steps.
 ```
 ~ npm install
 ```
-4. Run the following commands to create the database.
+4. Install the python dependencies.
+```
+~ pip install -r requrements.txt
+```
+5. Run the following commands to create the database.
 ```
 ~ python3 manage.py makemigrations
 ~ python3 manage.py migrate
 ```
-5. Start the local server on port 8000 and watch for changes.
+6. Start the local server on port 8000 and watch for changes.
 ```
 python3 manage.py runserver 0.0.0.0:8000
 ```
-6. (Optional) Watch for CSS changes.
+7. (Optional) Watch for CSS changes.
 ```
 ~ npx tailwindcss -i ./twins/static/style.src.css -o ./twins/static/style.css --watch
 ```
