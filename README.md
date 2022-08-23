@@ -13,7 +13,7 @@
 
 ## ℹ️ About The Project
 ![Homepage Screen Shot](readme/cover-dark.png)
-Twins allows you to easily compare an Algorand application with a source file on github and make sure the same source has been deployed to the Algorand blockchain.
+Twins allows you to easily compare an Algorand application with a source file on GitHub and make sure the same source has been deployed to the Algorand blockchain and get a badge to put in your Github readme. It will even know when there's a new commit and the new source file no longer reflects the deployed version, so the verified badge would get expired.
 
 ## 📸 Screenshots
 <div style="display:flex;flex-direction:row;justify-content:space-around;">
@@ -56,16 +56,20 @@ To get a local copy up and running follow these simple example steps.
 ```
 ~ pip install -r requrements.txt
 ```
-5. Run the following commands to create the database.
+5. Get a GitHub API key from [here](https://github.com/settings/tokens) and replace the following line inside `twins/github.py`:
+```
+g = Github("[YOUR_API_KEY]")
+```
+6. Run the following commands to create the database.
 ```
 ~ python3 manage.py makemigrations
 ~ python3 manage.py migrate
 ```
-6. Start the local server on port 8000 and watch for changes.
+7. Start the local server on port 8000 and watch for changes.
 ```
 ~ python3 manage.py runserver
 ```
-7. (Optional) Watch for CSS changes.
+8. (Optional) Watch for CSS changes.
 ```
 ~ npx tailwindcss -i ./twins/static/style.src.css -o ./twins/static/style.css --watch
 ```
